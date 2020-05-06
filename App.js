@@ -1,19 +1,40 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Button } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-export default function App() {
+import { Provider } from './src/context/BlogContext';
+
+import IndexScreen from './src/screens/IndexScreen';
+import EditScreen from './src/screens/EditScreen';
+import CreateScreen from './src/screens/CreateScreen';
+import ShowScreen from './src/screens/ShowScreen';
+
+const Stack = createStackNavigator();
+
+function MyStack() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
+    <Stack.Navigator>
+      <Stack.Screen name="Index" component={IndexScreen} />
+      <Stack.Screen name="Show" component={ShowScreen} />
+      <Stack.Screen name="Edit" component={EditScreen} />
+      <Stack.Screen name="Create" component={CreateScreen} />
+    </Stack.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+function App() {
+  return (
+    <NavigationContainer>
+      <MyStack />
+    </NavigationContainer>
+  );
+}
+
+export default () => {
+  return (
+    <Provider>
+      <App />
+    </Provider>
+  );
+};
